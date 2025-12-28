@@ -1,0 +1,24 @@
+# Flask Configuration
+FLASK_ENV=development
+FLASK_DEBUG=True
+SECRET_KEY=your-secret-key-change-in-production
+
+# Database
+DATABASE_URL=sqlite:///data/db.sqlite
+
+# Vector Store Paths
+FAISS_INDEX_PATH=data/vector_store.faiss
+VECTOR_METADATA_PATH=data/vector_store.pkl
+
+# Ollama Configuration
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=mistral
+OLLAMA_TIMEOUT=300
+
+# Embedding Model
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+# RAG Configuration
+RAG_TOP_K=3
+RAG_CHUNK_SIZE=500
+RAG_CHUNK_OVERLAP=50

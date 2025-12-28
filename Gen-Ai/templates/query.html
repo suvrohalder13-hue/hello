@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}Ask Question - GenAI PYQ Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/query.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">Ask Your Question</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form id="question-form">
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Select Subject</label>
+                            <select class="form-select" id="subject" required>
+                                <option value="">-- Choose a subject --</option>
+                                {% for subject in subjects %}
+                                <option value="{{ subject }}">{{ subject }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="question" class="form-label">Your Question</label>
+                            <textarea class="form-control" id="question" rows="5" placeholder="Ask your exam question..." required></textarea>
+                            <small class="form-text text-muted">Be specific for better answers</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Get Answer</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div id="loading" class="text-center mb-4" style="display: none;">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Getting answer from PYQ database...</p>
+            </div>
+
+            <!-- Answer Display -->
+            <div id="answer-section" style="display: none;">
+                <div class="card mb-4 border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Answer</h5>
+                    </div>
+                    <div class="card-body">
+                        <p id="answer-text"></p>
+                        <div class="mt-3">
+                            <strong>Confidence: <span id="confidence"></span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Sources</h5>
+                    </div>
+                    <div class="card-body" id="sources">
+                        <!-- Sources will be filled by JS -->
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary w-100" onclick="resetForm()">Ask Another Question</button>
+            </div>
+
+            <!-- Error Display -->
+            <div id="error-section" class="alert alert-danger" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/query.js') }}"></script>
+{% endblock %}

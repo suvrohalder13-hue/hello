@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Home - GenAI PYQ Assistant{% endblock %}
+
+{% block content %}
+<div class="hero-section bg-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">GenAI PYQ Assistant</h1>
+        <p class="lead mb-4">AI-Powered Learning System for MCA Exam Preparation</p>
+        <a href="/dashboard" class="btn btn-light btn-lg">Get Started</a>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📚 Smart Q&A</h5>
+                    <p class="card-text">Ask exam questions and get AI-powered answers based on Previous Year Papers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">🧪 AI Quiz Generator</h5>
+                    <p class="card-text">Generate custom quizzes from exam topics with instant feedback</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">📊 Progress Tracking</h5>
+                    <p class="card-text">Monitor your performance and track learning progress over time</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Key Features</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>RAG-based question answering system</li>
+                        <li>Coverage of 5 MCA subjects (DBMS, DS, ML, CN, OS)</li>
+                        <li>AI-generated MCQ questions</li>
+                        <li>Instant scoring and detailed analytics</li>
+                        <li>Local data storage - Complete privacy</li>
+                        <li>Exam-focused explanations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Covered Subjects</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>DBMS</h6>
+                            <small>Database Management Systems</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>DS</h6>
+                            <small>Data Structures</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>ML</h6>
+                            <small>Machine Learning</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>CN</h6>
+                            <small>Computer Networks</small>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>OS</h6>
+                            <small>Operating Systems</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

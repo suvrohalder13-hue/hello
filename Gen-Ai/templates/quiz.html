@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz - GenAI PYQ Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Quiz Setup -->
+    <div id="quiz-setup" class="row">
+        <div class="col-lg-6 mx-auto">
+            <h1 class="mb-4">Create a Quiz</h1>
+            
+            <div class="card">
+                <div class="card-body">
+                    <form id="quiz-form">
+                        <div class="mb-3">
+                            <label for="quiz-subject" class="form-label">Select Subject</label>
+                            <select class="form-select" id="quiz-subject" required>
+                                <option value="">-- Choose a subject --</option>
+                                {% for subject in subjects %}
+                                <option value="{{ subject }}">{{ subject }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="num-questions" class="form-label">Number of Questions</label>
+                            <input type="number" class="form-control" id="num-questions" min="1" max="10" value="5" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100">Generate Quiz</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading" class="text-center" style="display: none;">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Generating quiz questions...</p>
+    </div>
+
+    <!-- Quiz Display -->
+    <div id="quiz-container" style="display: none;">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Quiz: <span id="quiz-subject-display"></span></h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="questions-container"></div>
+                        
+                        <hr>
+                        
+                        <div class="timer-section mb-3">
+                            <p>Time: <span id="timer">0:00</span></p>
+                        </div>
+
+                        <button class="btn btn-primary w-100" onclick="submitQuiz()">Submit Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Display -->
+    <div id="results-section" style="display: none;">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card text-center">
+                    <div class="card-body py-5">
+                        <h3 class="mb-3">Quiz Complete!</h3>
+                        <h2 class="display-4 mb-3"><span id="final-score">0</span>/<span id="final-total">5</span></h2>
+                        <h4 class="text-success mb-3"><span id="percentage">0</span>%</h4>
+                        <p class="text-muted mb-4">Time taken: <span id="final-time">0:00</span></p>
+                        
+                        <div id="result-message"></div>
+                        
+                        <hr>
+                        
+                        <button class="btn btn-primary w-100" onclick="resetQuiz()">Take Another Quiz</button>
+                    </div>
+                </div>
+
+                <!-- Answer Review -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Review Answers</h5>
+                    </div>
+                    <div class="card-body" id="review-section">
+                        <!-- Answers will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Display -->
+    <div id="error-section" class="alert alert-danger" style="display: none;"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

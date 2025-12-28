@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - GenAI PYQ Assistant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Dashboard</h1>
+    
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Total PYQs</h6>
+                    <h2 id="total-pyqs">{{ stats.total_pyqs }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Quiz Attempts</h6>
+                    <h2 id="quiz-attempts">{{ stats.quiz_attempts }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Average Score</h6>
+                    <h2 id="avg-score">{{ "%.1f"|format(stats.avg_score) }}%</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h6 class="card-title">Subjects</h6>
+                    <h2 id="total-subjects">{{ stats.subjects|length }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Subject Selection -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Select Subject</h5>
+                </div>
+                <div class="card-body">
+                    <div class="subject-grid">
+                        <button class="btn btn-outline-primary subject-btn mb-2 w-100" data-subject="DBMS">
+                            📚 DBMS
+                            <small class="d-block">{{ stats.subjects.get('DBMS', 0) }} PYQs</small>
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn mb-2 w-100" data-subject="DS">
+                            🌳 Data Structures
+                            <small class="d-block">{{ stats.subjects.get('DS', 0) }} PYQs</small>
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn mb-2 w-100" data-subject="ML">
+                            🧠 Machine Learning
+                            <small class="d-block">{{ stats.subjects.get('ML', 0) }} PYQs</small>
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn mb-2 w-100" data-subject="CN">
+                            🌐 Computer Networks
+                            <small class="d-block">{{ stats.subjects.get('CN', 0) }} PYQs</small>
+                        </button>
+                        <button class="btn btn-outline-primary subject-btn mb-2 w-100" data-subject="OS">
+                            ⚙️ Operating Systems
+                            <small class="d-block">{{ stats.subjects.get('OS', 0) }} PYQs</small>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Queries -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Queries</h5>
+                </div>
+                <div class="card-body" id="recent-queries">
+                    {% for query in stats.recent_queries %}
+                    <div class="mb-3 pb-3 border-bottom">
+                        <h6 class="text-dark mb-1">{{ query.question[:50] }}...</h6>
+                        <small class="text-muted">{{ query.subject }}</small><br>
+                        <small class="text-secondary">{{ query.created_at }}</small>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No recent queries yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <a href="/query" class="btn btn-success w-100 mb-2">
+                        ❓ Ask a Question
+                    </a>
+                    <a href="/quiz" class="btn btn-info w-100 mb-2">
+                        🧪 Take a Quiz
+                    </a>
+                    <button class="btn btn-secondary w-100" onclick="refreshStats()">
+                        🔄 Refresh Stats
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
